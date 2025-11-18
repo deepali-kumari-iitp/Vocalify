@@ -3,6 +3,9 @@
 **Vocalify** is a multilingual text-to-speech web app that converts written text into natural-sounding voices across different languages and accents.
 
 ---
+## 🚀 Live Demo  
+👉 **[Click Here to Open Vocalify](https://deepali-kumari-iitp.github.io/Vocalify/)**  
+
 
 ## 🌟 Features
 - 🔊 Converts text into speech in multiple languages  
