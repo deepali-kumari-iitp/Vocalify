@@ -6,7 +6,6 @@ const textInput = document.getElementById("text");
 const speakBtn = document.getElementById("speakBtn");
 const stopBtn = document.getElementById("stopBtn");
 
-// Create new buttons for pause and resume dynamically (optional)
 const pauseBtn = document.createElement("button");
 pauseBtn.id = "pauseBtn";
 pauseBtn.textContent = "⏸ Pause";
@@ -23,28 +22,34 @@ const rateControl = document.getElementById("rate");
 window.speechSynthesis.onvoiceschanged = () => {
     voices = window.speechSynthesis.getVoices();
     voiceSelect.innerHTML = '';
+
     voices.forEach((voice, i) => {
         const option = new Option(`${voice.name} (${voice.lang})`, i);
         voiceSelect.add(option);
     });
+
     speech.voice = voices[0];
+    speech.lang = voices[0].lang;
 };
 
+// VOICE CHANGE
 voiceSelect.addEventListener("change", () => {
     speech.voice = voices[voiceSelect.value];
+    speech.lang = voices[voiceSelect.value].lang;  // ⭐ FIX: Change language properly
 });
 
+// Pitch
 pitchControl.addEventListener("input", () => {
     speech.pitch = pitchControl.value;
 });
 
+// Speed
 rateControl.addEventListener("input", () => {
     speech.rate = rateControl.value;
 });
 
-// Start speaking
+// Speak
 speakBtn.addEventListener("click", () => {
-    // If already speaking, prevent restarting
     if (window.speechSynthesis.speaking) return;
     speech.text = textInput.value.trim();
     if (speech.text !== "") {
@@ -52,21 +57,21 @@ speakBtn.addEventListener("click", () => {
     }
 });
 
-// Pause speaking
+// Pause
 pauseBtn.addEventListener("click", () => {
     if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
         window.speechSynthesis.pause();
     }
 });
 
-// Resume speaking
+// Resume
 resumeBtn.addEventListener("click", () => {
     if (window.speechSynthesis.paused) {
         window.speechSynthesis.resume();
     }
 });
 
-// Stop speaking completely
+// Stop
 stopBtn.addEventListener("click", () => {
     window.speechSynthesis.cancel();
 });
